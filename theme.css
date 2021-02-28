@@ -1,6 +1,9 @@
 /* Extra Variables */
 .theme-dark {
-    --background-image: url(https://bouterh.github.io/preview.png)
+    --background-secondary: transparent;
+    --background-primary: transparent;
+    --background-floating: #1f1f1f;
+        --background-image: url(https://bouterh.github.io/preview.png);
     /*////*/
     --dusk-background-1: #232323;
     --dusk-background-2: #1e1e1e;
