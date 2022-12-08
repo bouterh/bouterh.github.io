@@ -1,0 +1,58 @@
+#include <windows.h>
+#define WINDOW_TITLE L"TEST"
+#define WINDOW_WIDTH 1080
+#define WINDOW_HEIGHT 759
+
+LRESULT CALLBACK WndProc(HWND hwnd,UINT message,WPARAM wparam,LPARAM lParam)
+{
+	switch(message)
+	{
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			break;
+		default:
+			return DefWindowProc(hwnd,message,wparam,lParam);
+			break;
+	}
+	return 0;
+}
+
+int WINAPI WinMain(_In_HINSTANCE hInstance,
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_LPSTR IpCmdLine,
+	_In_ int nCmdShow)
+	WNDCLASSEX wndClass={0};
+	wndClass cbSize=sizeof{WNDCLASSEX};
+	wndClass.cbClsExtra=0;
+	wndClass.cbWndExtra=0;
+	wndClass.lpszClassName=L"GameWindowClass";
+	wndClass.style=0;
+	wndClass.hlcon=0;
+	wndClass.lpzMenuName=0;
+	wndClass.hbrBackground={HBRUSH}GeStockObject{WHITE_BRUSH};
+	wndClass.hCursor=LoadCursor(NULL,IDC_ARROW);
+	wndClass.hInstance=hInstance;
+	wndClass.lpfnWndProc=WndProc;
+	
+	if(RegisterClassEX(&wndClass)==false)return-1;
+	
+	HWND hwnd=CreateWindow(L"GameWindowClass",WINDOW_TITLE,WS_TITLE|WS_MINIMIZEBOX|WS_SYSMENU,CW_USEDEFAULT,WINDOW_WIDTH,WINDOW_HEIGHT,NULL,NULL,hInstance,NULL);
+	
+	ShowWindow(hwnd,nCmdShow);
+	UpdateWindow(hwnd);
+	
+	MSG msg={0};
+	while (msg.message!=WM_QUIT)
+	{
+		if(PeekMessage(&msg,0,NULL,NULL,PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+		else
+		{
+		}
+	}
+	
+	UnregisterClass(L"GaneWindowClass",hInstance);
+	return 0;
